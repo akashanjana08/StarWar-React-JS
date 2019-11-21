@@ -1,9 +1,10 @@
 // import _ from 'lodash';
 export const utility = {
-  getArrayObjectByKeySearch,
+    getObjectByKeySearch,
+    getArrayObjectByMultipleKeySearch
 }
 
- function getArrayObjectByKeySearch(_arrayObj, keys, value) {
+ function getObjectByKeySearch(_arrayObj, keys, value) {
     const data = _arrayObj.filter((item) => {
         return item[keys].toUpperCase()===(value.toUpperCase());
     });
@@ -14,3 +15,13 @@ export const utility = {
     }
 }
 
+function getArrayObjectByMultipleKeySearch(_arrayObj, keys, value) {
+    const data = _arrayObj.filter((item) => {
+        return item[keys].toUpperCase().includes(value.toUpperCase());
+    });
+    if (data.length > 0) {
+        return data;
+    } else {
+        return false;
+    }
+}

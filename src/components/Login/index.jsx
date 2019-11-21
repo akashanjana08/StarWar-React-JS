@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import * as actionCreators from '../../actions/login';
 import { utility } from '../../utils/common-func'
+import { token } from '../../utils/Auth';
 require('./style.scss')
 
 class LoginScreen extends React.Component{
@@ -14,8 +15,13 @@ class LoginScreen extends React.Component{
       password: '',
       isAuthUser: false
    }
+   if(token.getToken()){
+    this.props.history.push("/search");
+  }
  }
+  componentDidMount(){
 
+  }
  componentDidUpdate(prevProps) {
   const { logged, errorLogin, peopleRes } = this.props;
   if (prevProps.loging && logged && !errorLogin) {
@@ -24,7 +30,9 @@ class LoginScreen extends React.Component{
       if(_userObj){
         const _fUserObj = utility.getArrayObjectByKeySearch(_userObj, 'birth_year', this.state.password);
         if(_fUserObj.length > 0){
+          token.setToken(this.state.userName);
           this.props.history.push("/search");
+
           console.log('Successfully Login')
         }else{
           this.setState({ isAuthUser: true});
@@ -59,7 +67,7 @@ class LoginScreen extends React.Component{
           <form class="login-form">
             <input type="text" name="userName" onChange={this.handleOnChange} autoComplete="off" placeholder="Username" />
             <input type="password" name="password" onChange={this.handleOnChange} placeholder="Password" />
-            <button disabled={!userName && !password} onClick={this.handleSignIn}>{btnLabel}</button>
+            <button disabled={(!userName && !password) || this.props.loging } onClick={this.handleSignIn}>{btnLabel}</button>
             {
               isAuthUser ? <p class="message">Invalid Username or password</p> : null
             }
