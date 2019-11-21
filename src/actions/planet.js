@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { actionTypes, apiURLs } from '../constants/action-types';
 
- export const loginUser = () => {
+ export const fetchPlanets = () => {
   return dispatch => {
     dispatch({
       type: actionTypes.FETCHING_PLANET

@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actionCreators from '../../actions/planet';
 import CircularProgress from '@material-ui/core/CircularProgress';
+require('../../common/style.scss');
 
 class SearchScreen extends React.Component {
     constructor(props) {
@@ -14,12 +15,12 @@ class SearchScreen extends React.Component {
 
     componentDidMount(){
       console.log(this.props)
-      //this.props.fetchPlanets();
+      this.props.fetchPlanets();
     }
 
     render() {
         return (
-            <CircularProgress color="secondary" />
+            <CircularProgress className="loader" color="primary" />
         )
     }
 }

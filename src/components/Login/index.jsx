@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import * as actionCreators from '../../actions/login';
 import { utility } from '../../utils/common-func'
+require('./style.scss')
 
 class LoginScreen extends React.Component{
  constructor(props){
@@ -45,24 +46,25 @@ class LoginScreen extends React.Component{
  }
 
  handleOnChange=(evt)=>{
-   this.setState({ [evt.target.name]: evt.target.value});
+   this.setState({ [evt.target.name]: evt.target.value, isAuthUser: false});
  }
 
  render(){
    const {userName, password, isAuthUser} = this.state;
    const btnLabel = this.props.loging ? 'Please Wait...' : 'Login';
     return (
-      <div>
-      {
-        isAuthUser ? <div>Invalid Username or password</div> : null
-      }
-      
-      <form onSubmit={this.handleSignIn}>
-        <h3>Sign in</h3>
-        <input type="text" name="userName" onChange={this.handleOnChange} autoComplete="off" placeholder="enter you username" />
-        <input type="password" name="password" onChange={this.handleOnChange} placeholder="enter password as your Date of Birth" />
-        <input type="submit" disabled={!userName && !password} value={btnLabel} />
-      </form>
+      <div class="login-page">
+        <div class="form">
+          <h1>Login</h1>
+          <form class="login-form">
+            <input type="text" name="userName" onChange={this.handleOnChange} autoComplete="off" placeholder="Username" />
+            <input type="password" name="password" onChange={this.handleOnChange} placeholder="Password" />
+            <button disabled={!userName && !password} onClick={this.handleSignIn}>{btnLabel}</button>
+            {
+              isAuthUser ? <p class="message">Invalid Username or password</p> : null
+            }
+          </form>
+        </div>
       </div>
     )
  }
